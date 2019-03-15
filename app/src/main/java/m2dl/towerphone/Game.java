@@ -27,7 +27,7 @@ public class Game extends AppCompatActivity {
     private ImageView monster1;
     private ImageView monster2;
 
-    private int frameHeight;
+    private int frameHeight, frameWidth;
     private int boxSize;
     private int screenWidth;
     private int screenHeight;
@@ -56,15 +56,25 @@ public class Game extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 monster1.setVisibility(View.INVISIBLE);
+                score++;
                 return false;
             }
         });
         monster2 = findViewById(R.id.monstre2);
+        monster2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                monster2.setVisibility(View.INVISIBLE);
+                score++;
+                return false;
+            }
+        });
         minions = findViewById(R.id.minions);
         minions.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 minions.setVisibility(View.INVISIBLE);
+                score++;
                 return false;
             }
         });
@@ -77,7 +87,7 @@ public class Game extends AppCompatActivity {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        monster1.setX(-150f);
+        monster1.setX(-150);
         monster1.setY(-150);
 
         monster2.setX(-150);
@@ -108,7 +118,8 @@ public class Game extends AppCompatActivity {
         monster1.setX(monster1Y);
         monster1.setY(monster1X);*/
 
-        minionsX -=12;
+        //Left
+        minionsX -= 7;
         if (minionsX < 0){
                 minionsX = screenWidth;
                 minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
@@ -117,15 +128,25 @@ public class Game extends AppCompatActivity {
         minions.setY(minionsY);
         if (minions.getX() >= screenWidth) minions.setVisibility(View.VISIBLE);
 
-        monster1X -= 12;
-        if (monster1X < 0) {
-            monster1X = screenWidth;
-            monster1Y = (int) Math.floor(Math.random() * (frameHeight - monster1.getHeight()));
+        //Down
+        monster1Y += 7;
+        if (monster1Y > screenHeight) {
+            monster1X = (int) Math.floor(Math.random() * (screenWidth - monster1.getWidth()));
+            monster1Y = -100;
         }
-        monster1.setX(monster1Y);
-        monster1.setY(monster1X);
-        if (monster1.getX() >= (int) Math.floor((frameHeight - monster1.getHeight()))) monster1.setVisibility(View.VISIBLE);
+        monster1.setX(monster1X);
+        monster1.setY(monster1Y);
+        if (monster1.getY() < 0) monster1.setVisibility(View.VISIBLE);
 
+        //Up
+        monster2Y -= 7;
+        if (monster2X + monster2Y < 0){
+            monster2X = (int) Math.floor(Math.random() * (screenWidth - monster2.getWidth()));
+            monster2Y = screenHeight + 100;
+        }
+        monster2.setX(monster2X);
+        monster2.setY(monster2Y);
+        if (monster2.getY() < 0) monster2.setVisibility(View.VISIBLE);
         scoreLabel.setText("Score : "+ score);
     }
 
@@ -141,6 +162,7 @@ public class Game extends AppCompatActivity {
 
             FrameLayout frame = findViewById(R.id.frame);
             frameHeight = frame.getHeight();
+            frameWidth = frame.getWidth();
 
             startLabel.setVisibility(View.GONE);
             timer.schedule(new TimerTask() {
