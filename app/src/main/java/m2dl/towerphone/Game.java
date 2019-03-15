@@ -136,7 +136,7 @@ public class Game extends AppCompatActivity {
                 minionsX = screenWidth;
                 minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
         }
-        if ((tour.getX() - 5 <= minionsX && minionsX <= tour.getX() + 5)  && (minionsY > tour.getY() - 2  ||  minionsY < tour.getY() + 2 )) {
+        if ((tour.getX() - 2 <= minionsX && minionsX <= tour.getX() + 2)  && (minionsY > tour.getY() - 2  ||  minionsY < tour.getY() + 2 )){
             curHP = curHP - 10;
             hpBar.setProgress(curHP);
             minionsX = -100;
@@ -151,9 +151,16 @@ public class Game extends AppCompatActivity {
             monster1X = (int) Math.floor(Math.random() * (screenWidth - monster1.getWidth()));
             monster1Y = -100;
         }
+        if(monster1.getVisibility() == View.VISIBLE) {
+            if ((tour.getX() - 2 < monster1X || monster1X < tour.getX() + 2) && (monster1Y > tour.getY() - 1  && monster1Y < tour.getY() + 1)) {
+                curHP = curHP - 10;
+                hpBar.setProgress(curHP);
+                monster1Y = screenHeight;
+            }
+        }
         monster1.setX(monster1X);
         monster1.setY(monster1Y);
-        if (monster1.getY() < 0) monster1.setVisibility(View.VISIBLE);
+        //if (monster1.getY() < 0) monster1.setVisibility(View.VISIBLE);
 
         //Up
         monster2Y -= 7;
@@ -161,9 +168,18 @@ public class Game extends AppCompatActivity {
             monster2X = (int) Math.floor(Math.random() * (screenWidth - monster2.getWidth()));
             monster2Y = screenHeight + 100;
         }
+        if(monster2.getVisibility() == View.VISIBLE) {
+            if ((tour.getX() - 2 < monster2X  || monster2X < tour.getX() + 2) && (monster2Y > tour.getY() - 2 && monster2Y < tour.getY() + 2)) {
+                curHP = curHP - 10;
+                hpBar.setProgress(curHP);
+                monster2X = -100;
+                monster2Y = -100;
+                return;
+            }
+        }
         monster2.setX(monster2X);
         monster2.setY(monster2Y);
-        if (monster2.getY() < 0) monster2.setVisibility(View.VISIBLE);
+        //if (monster2.getY() < 0) monster2.setVisibility(View.VISIBLE);
         scoreLabel.setText("Score : "+ score);
     }
 

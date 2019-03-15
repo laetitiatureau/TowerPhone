@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="280dp"
-            android:progressBackgroundTint="#3D9406"
+            android:progressBackgroundTint="#3DFF06"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
