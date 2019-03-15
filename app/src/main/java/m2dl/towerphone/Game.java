@@ -1,5 +1,6 @@
 package m2dl.towerphone;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.Image;
 import android.os.Handler;
@@ -17,52 +18,59 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.content.Context;
+
 public class Game extends AppCompatActivity {
 
     //private CanvasView customCanvas;
 
-    private TextView scoreLabel;
+    public static TextView scoreLabel;
     private TextView startLabel;
 
-    private ImageView minions;
-    private ImageView monster1;
-    private ImageView monster2;
+    public static ImageView minions;
+    public static ImageView monster1;
+    public static ImageView monster2;
     private ImageView tour;
-
     private ProgressBar hpBar;
-    private int curHP = 100;
+
     private int frameHeight, frameWidth;
     private int boxSize;
     private int screenWidth;
     private int screenHeight;
-    private int score = 0;
+    public static int score = 0;
     private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY;
 
-    private boolean start_flg = false;
+    public static boolean start_flg = false;
     private boolean action_flg = false;
+    private int curHP = 100;
 
     private Handler handler = new Handler();
     private Timer timer = new Timer();
 
-
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
+    public static TextView shake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
-
         hpBar = findViewById(R.id.progressBar4);
         scoreLabel = findViewById(R.id.scoreLabel);
         startLabel = findViewById(R.id.startLabel);
         tour = findViewById(R.id.tower);
         monster1 = findViewById(R.id.monstre1);
+
+
         monster1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 monster1.setVisibility(View.INVISIBLE);
-                score++;
+                score += 10;
                 return false;
             }
         });
@@ -71,7 +79,7 @@ public class Game extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 monster2.setVisibility(View.INVISIBLE);
-                score++;
+                score+=20;
                 return false;
             }
         });
@@ -80,7 +88,7 @@ public class Game extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 minions.setVisibility(View.INVISIBLE);
-                score++;
+                score+=30;
                 return false;
             }
         });
@@ -103,24 +111,39 @@ public class Game extends AppCompatActivity {
         minions.setY(-150);
 
         scoreLabel.setText("SCORE: 0");
+
+        shake = findViewById(R.id.timer);
+        Intent intent = new Intent(this, ShakeService.class);
+        startService(intent);
+
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+            }
+        });
     }
 
     private void changePosition(){
+        checkPosition();
         //Left
         minionsX -= 7;
         if (minionsX < 0){
                 minionsX = screenWidth;
-                minionsY = (int) Math.floor(Math.random() * (screenHeight - minions.getHeight()));
+                minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
         }
-        if(minions.getVisibility() == View.VISIBLE) {
-            if ((tour.getX() -1 < minionsX && minionsX <= tour.getX() + 1) && (minionsY > tour.getY() - 1 || minionsY < tour.getY() + 1)) {
-                curHP = curHP - 10;
-                hpBar.setProgress(curHP);
-                minionsX = -100;
-            }
+        if ((tour.getX() - 2 <= minionsX && minionsX <= tour.getX() + 2)  && (minionsY > tour.getY() - 2  ||  minionsY < tour.getY() + 2 )){
+            curHP = curHP - 10;
+            hpBar.setProgress(curHP);
+            minionsX = -100;
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
+        if (minions.getX() >= screenWidth) minions.setVisibility(View.VISIBLE);
 
         //Down
         monster1Y += 7;
@@ -129,15 +152,15 @@ public class Game extends AppCompatActivity {
             monster1Y = -100;
         }
         if(monster1.getVisibility() == View.VISIBLE) {
-            if ((tour.getX() -1 < monster1X || monster1X < tour.getX() + 1) && (monster1Y > tour.getY() - 1  && monster1Y < tour.getY() + 1)) {
+            if ((tour.getX() - 2 < monster1X || monster1X < tour.getX() + 2) && (monster1Y > tour.getY() - 1  && monster1Y < tour.getY() + 1)) {
                 curHP = curHP - 10;
                 hpBar.setProgress(curHP);
-                monster1X = -100;
+                monster1Y = screenHeight;
             }
         }
         monster1.setX(monster1X);
         monster1.setY(monster1Y);
-        if (monster1.getY() < 0) monster1.setVisibility(View.VISIBLE);
+        //if (monster1.getY() < 0) monster1.setVisibility(View.VISIBLE);
 
         //Up
         monster2Y -= 7;
@@ -146,24 +169,30 @@ public class Game extends AppCompatActivity {
             monster2Y = screenHeight + 100;
         }
         if(monster2.getVisibility() == View.VISIBLE) {
-            if ((tour.getX() -1 < monster2X  || monster2X < tour.getX() + 1) && (monster2Y > tour.getY() - 1 && monster2Y < tour.getY() + 1)) {
+            if ((tour.getX() - 2 < monster2X  || monster2X < tour.getX() + 2) && (monster2Y > tour.getY() - 2 && monster2Y < tour.getY() + 2)) {
                 curHP = curHP - 10;
                 hpBar.setProgress(curHP);
-                monster2X= -100;
+                monster2X = -100;
                 monster2Y = -100;
+                return;
             }
         }
         monster2.setX(monster2X);
         monster2.setY(monster2Y);
-        if (monster2.getY() < 0) monster2.setVisibility(View.VISIBLE);
+        //if (monster2.getY() < 0) monster2.setVisibility(View.VISIBLE);
         scoreLabel.setText("Score : "+ score);
     }
 
+    private void checkPosition() {
 
-
-    /*public void clearCanvas(View v) {
-        customCanvas.clearCanvas();
-    }*/
+        if(curHP == 0){
+            timer.cancel();
+            timer = null;
+            Intent intent = new Intent(getApplicationContext(), HighScore.class);
+            intent.putExtra("SCORE", score);
+            startActivity(intent);
+        }
+    }
 
     public boolean onTouchEvent(MotionEvent event){
         if (!start_flg){
@@ -193,5 +222,19 @@ public class Game extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 }

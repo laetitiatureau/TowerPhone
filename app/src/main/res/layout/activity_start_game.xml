@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".StartGame">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TOWER PHONE"
+        android:shadowColor="#7f0000"
+        android:textColor="#b71c1c"
+        android:fontFamily="@font/benguiat_bold"
+        android:textSize="40sp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
+
+        <TableRow android:gravity="center_vertical" android:layout_marginBottom="20dp" >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/monstre1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="10 points"
+                android:fontFamily="@font/benguiat_bold"
+                android:textColor="#b71c1c"
+                android:textSize="28sp" />
+        </TableRow>
+
+        <TableRow android:gravity="center_vertical" android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/monstre2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#b71c1c"
+                android:fontFamily="@font/benguiat_bold"
+                android:paddingLeft="20dp"
+                android:text="20 points"
+                android:textSize="28sp" />
+        </TableRow>
+
+        <TableRow android:gravity="center_vertical" android:layout_marginBottom="20dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/minions" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/benguiat_bold"
+            android:textColor="#b71c1c"
+            android:paddingLeft="10dp"
+            android:text="30 points"
+            android:textSize="28sp" />
+    </TableRow>
+        <TableRow android:gravity="center_vertical" android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:fontFamily="@font/benguiat_bold"
+                android:text="SHAKE"
+
+                android:textColor="#b71c1c"
+                android:textSize="28sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/benguiat_bold"
+                android:paddingLeft="10dp"
+                android:textColor="#b71c1c"
+                android:text="50 points"
+                android:textSize="28sp" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:onClick="startGame"
+        android:fontFamily="@font/benguiat_bold"
+        android:text="START" />
+
+</LinearLayout>
