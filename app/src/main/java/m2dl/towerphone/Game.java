@@ -20,7 +20,6 @@ import java.util.TimerTask;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.content.Context;
-import android.widget.Toast;
 
 public class Game extends AppCompatActivity {
 
@@ -67,11 +66,12 @@ public class Game extends AppCompatActivity {
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
+        display.getSize(size);
 
         screenWidth = size.x;
         screenHeight = size.y;
 
-        monster1.setX(-150);
+        monster1.setX(-150f);
         monster1.setY(-150);
 
         monster2.setX(-150);
@@ -84,7 +84,6 @@ public class Game extends AppCompatActivity {
 
         shake = findViewById(R.id.scoreLabel);
         Intent intent = new Intent(this, ShakeService.class);
-        //Start Service
         startService(intent);
 
         // ShakeDetector initialization
@@ -102,14 +101,37 @@ public class Game extends AppCompatActivity {
 
     private void changePosition(){
 
+        /*minionsX += 20;
+        if (minionsX < 0){
+            minionsX = screenHeight + 10;
+            minionsY = (int) Math.floor(Math.random() * (screenHeight - minions.getHeight()));
+        }
+        minions.setX(minionsX);
+        minions.setY(minionsY);
+        //Down
+        monster1X += 10;
+        if (monster1.getX() > screenWidth){
+            monster1X = screenWidth - 10;
+            monster1Y =  (int) Math.floor(Math.random() * (screenHeight - monster1.getHeight()));
+        }
+        monster1.setX(monster1Y);
+        monster1.setY(monster1X);*/
+
         minionsX -=12;
         if (minionsX < 0){
-            minionsX = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
-            minionsY = screenHeight + 550;
+            minionsX = screenWidth + 20 ;
+            minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
 
+        monster1X -=12;
+        if (monster1X < 0){
+            monster1X = screenWidth + 20 ;
+            monster1Y = (int) Math.floor(Math.random() * (frameHeight - monster1.getHeight()));
+        }
+        monster1.setX(monster1Y);
+        monster1.setY(monster1X);
 
         scoreLabel.setText("Score : "+ score);
     }
