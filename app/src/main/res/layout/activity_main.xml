@@ -14,7 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50sp"
         android:text="Tower Phone"
-        android:textSize="50sp" />
+        android:textSize="50sp"
+        android:fontFamily="@font/benguiat_bold"
+        android:shadowRadius="2"
+        android:textColor="#b71c1c"
+        android:shadowColor="#7f0000"/>
 
     <ImageView
         android:id="@+id/imageView"
