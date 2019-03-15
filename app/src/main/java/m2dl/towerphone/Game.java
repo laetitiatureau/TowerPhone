@@ -18,16 +18,20 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.content.Context;
+
 public class Game extends AppCompatActivity {
 
     //private CanvasView customCanvas;
 
-    private TextView scoreLabel;
+    public static TextView scoreLabel;
     private TextView startLabel;
 
-    private ImageView minions;
-    private ImageView monster1;
-    private ImageView monster2;
+    public static ImageView minions;
+    public static ImageView monster1;
+    public static ImageView monster2;
     private ImageView tour;
     private ProgressBar hpBar;
 
@@ -35,17 +39,20 @@ public class Game extends AppCompatActivity {
     private int boxSize;
     private int screenWidth;
     private int screenHeight;
-    private int score = 0;
+    public static int score = 0;
     private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY;
 
-    private boolean start_flg = false;
+    public static boolean start_flg = false;
     private boolean action_flg = false;
     private int curHP = 100;
 
     private Handler handler = new Handler();
     private Timer timer = new Timer();
 
-
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
+    public static TextView shake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +111,21 @@ public class Game extends AppCompatActivity {
         minions.setY(-150);
 
         scoreLabel.setText("SCORE: 0");
+
+        shake = findViewById(R.id.timer);
+        Intent intent = new Intent(this, ShakeService.class);
+        startService(intent);
+
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+            }
+        });
     }
 
     private void changePosition(){
@@ -184,5 +206,19 @@ public class Game extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 }
