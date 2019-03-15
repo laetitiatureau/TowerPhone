@@ -50,16 +50,32 @@
 
         <TableRow android:gravity="center_vertical" android:layout_marginBottom="20dp">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/minions" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/minions" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="30 points"
+            android:textSize="28sp" />
+    </TableRow>
+        <TableRow android:gravity="center_vertical" android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:text="30 points"
+                android:text="SHAKE"
+                android:textSize="28sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="50 points"
                 android:textSize="28sp" />
         </TableRow>
     </TableLayout>

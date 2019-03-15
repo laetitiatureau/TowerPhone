@@ -66,7 +66,7 @@ public class ShakeService extends Service implements SensorEventListener {
                             Game.minions.setVisibility(View.INVISIBLE);
                             Game.monster1.setVisibility(View.INVISIBLE);
                             Game.monster2.setVisibility(View.INVISIBLE);
-                            Game.score += 30;
+                            Game.score += 50;
                             Game.scoreLabel.setText("SCORE: " + Game.score);
                             shake = true;
                         }
