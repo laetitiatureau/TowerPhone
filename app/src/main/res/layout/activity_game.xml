@@ -49,30 +49,30 @@
 
         <ImageView
             android:id="@+id/tower"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="300dp"
-            android:src="@drawable/tower"/>
+            android:src="@drawable/cercle" />
 
         <ImageView
             android:id="@+id/minions"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/minions" />
 
         <ImageView
             android:id="@+id/monstre1"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/monstre1" />
 
         <ImageView
             android:id="@+id/monstre2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/monstre2" />
 
