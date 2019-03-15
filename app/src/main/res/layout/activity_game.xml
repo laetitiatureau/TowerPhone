@@ -12,12 +12,14 @@
         android:layout_height="wrap_content"
         android:text="Score"
         tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="10dp" />
+        tools:layout_editor_absoluteY="10dp"
+        android:textSize="20dp" />
 
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/startLabel"

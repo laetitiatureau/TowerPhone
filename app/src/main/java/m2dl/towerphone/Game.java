@@ -31,7 +31,7 @@ public class Game extends AppCompatActivity {
     private int screenWidth;
     private int screenHeight;
     private int score = 0;
-    private float monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY;
+    private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY;
 
     private boolean start_flg = false;
     private boolean action_flg = false;
@@ -57,40 +57,57 @@ public class Game extends AppCompatActivity {
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
+        display.getSize(size);
 
         screenWidth = size.x;
         screenHeight = size.y;
 
-        monster1.setX(-80.0f);
-        monster1.setY(-80.0f);
+        monster1.setX(-150f);
+        monster1.setY(-150);
 
-        monster2.setX(-80.0f);
-        monster2.setY(-80.0f);
+        monster2.setX(-150);
+        monster2.setY(-150);
 
-        minions.setX(-150.0f);
-        minions.setY(-150.0f);
+        minions.setX(-150);
+        minions.setY(-150);
 
         scoreLabel.setText("SCORE: 0");
     }
 
     private void changePosition(){
 
-        minionsX -= 5;
+        /*minionsX += 20;
         if (minionsX < 0){
-            minionsX = (float) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
-            minionsY = screenHeight + 550.0f;
+            minionsX = screenHeight + 10;
+            minionsY = (int) Math.floor(Math.random() * (screenHeight - minions.getHeight()));
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
 
         //Down
-        monster1X += 5;
-        if (monster1.getY()> screenHeight){
-            monster1X = (float) Math.floor(Math.random() * (screenWidth - monster1.getWidth()));
-            monster1Y = -100.0f;
+        monster1X += 10;
+        if (monster1.getX() > screenWidth){
+            monster1X = screenWidth - 10;
+            monster1Y =  (int) Math.floor(Math.random() * (screenHeight - monster1.getHeight()));
         }
-        monster1.setX(monster1X);
-        monster1.setY(monster1Y);
+        monster1.setX(monster1Y);
+        monster1.setY(monster1X);*/
+
+        minionsX -=12;
+        if (minionsX < 0){
+                minionsX = screenWidth + 20 ;
+                minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
+        }
+        minions.setX(minionsX);
+        minions.setY(minionsY);
+
+        monster1X -=12;
+        if (monster1X < 0){
+            monster1X = screenWidth + 20 ;
+            monster1Y = (int) Math.floor(Math.random() * (frameHeight - monster1.getHeight()));
+        }
+        monster1.setX(monster1Y);
+        monster1.setY(monster1X);
 
         scoreLabel.setText("Score : "+ score);
     }
