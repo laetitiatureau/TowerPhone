@@ -1,5 +1,6 @@
 package m2dl.towerphone;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.Image;
 import android.os.Handler;
@@ -26,13 +27,14 @@ public class Game extends AppCompatActivity {
     private ImageView minions;
     private ImageView monster1;
     private ImageView monster2;
+    private ImageView tower;
 
     private int frameHeight, frameWidth;
     private int boxSize;
     private int screenWidth;
     private int screenHeight;
     private int score = 0;
-    private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY;
+    private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY, towerX, towerY;
 
     private boolean start_flg = false;
     private boolean action_flg = false;
@@ -47,16 +49,17 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
-
         scoreLabel = findViewById(R.id.scoreLabel);
         startLabel = findViewById(R.id.startLabel);
         monster1 = findViewById(R.id.monstre1);
+        tower = findViewById(R.id.tower);
+
+
         monster1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 monster1.setVisibility(View.INVISIBLE);
-                score++;
+                score += 10;
                 return false;
             }
         });
@@ -65,7 +68,7 @@ public class Game extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 monster2.setVisibility(View.INVISIBLE);
-                score++;
+                score+=20;
                 return false;
             }
         });
@@ -74,7 +77,7 @@ public class Game extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 minions.setVisibility(View.INVISIBLE);
-                score++;
+                score+=30;
                 return false;
             }
         });
@@ -100,24 +103,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void changePosition(){
-
-        /*minionsX += 20;
-        if (minionsX < 0){
-            minionsX = screenHeight + 10;
-            minionsY = (int) Math.floor(Math.random() * (screenHeight - minions.getHeight()));
-        }
-        minions.setX(minionsX);
-        minions.setY(minionsY);
-
-        //Down
-        monster1X += 10;
-        if (monster1.getX() > screenWidth){
-            monster1X = screenWidth - 10;
-            monster1Y =  (int) Math.floor(Math.random() * (screenHeight - monster1.getHeight()));
-        }
-        monster1.setX(monster1Y);
-        monster1.setY(monster1X);*/
-
+        checkPosition();
         //Left
         minionsX -= 7;
         if (minionsX < 0){
@@ -146,15 +132,25 @@ public class Game extends AppCompatActivity {
         }
         monster2.setX(monster2X);
         monster2.setY(monster2Y);
+
         if (monster2.getY() < 0) monster2.setVisibility(View.VISIBLE);
         scoreLabel.setText("Score : "+ score);
     }
 
+    private void checkPosition() {
 
+        //if ((tower.getX() -2 <= minionsX && minionsX <= tower.getX() + 2)  && (minionsY > tower.getY() - 2  ||  minionsY < tower.getY() + 2 )){
 
-    /*public void clearCanvas(View v) {
-        customCanvas.clearCanvas();
-    }*/
+            timer.cancel();
+            timer = null;
+
+            Intent intent = new Intent(getApplicationContext(), HighScore.class);
+            intent.putExtra("SCORE", score);
+            startActivity(intent);
+        //}
+
+    }
+
 
     public boolean onTouchEvent(MotionEvent event){
         if (!start_flg){

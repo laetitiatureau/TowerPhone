@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".StartGame"></activity>
         <activity android:name=".HighScore" />
         <activity android:name=".Game" />
         <activity android:name=".MainActivity">
