@@ -3,19 +3,16 @@ package m2dl.towerphone;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
-import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
-
-import java.util.Random;
 
 public class ShakeService extends Service implements SensorEventListener {
 
@@ -27,6 +24,7 @@ public class ShakeService extends Service implements SensorEventListener {
 
     private boolean timeRunning = false;
     private boolean shake = false;
+    private MediaPlayer mediaPlayer;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -57,7 +55,7 @@ public class ShakeService extends Service implements SensorEventListener {
         float delta = mAccelCurrent - mAccelLast;
         mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
-        if (mAccel > 11 && Game.start_flg) {
+        if (mAccel > 9 && Game.start_flg) {
             if (!timeRunning) {
                 new CountDownTimer(10000, 1000) {
                     public void onTick(long millisUntilFinished) {
@@ -66,7 +64,7 @@ public class ShakeService extends Service implements SensorEventListener {
                             Game.minions.setVisibility(View.INVISIBLE);
                             Game.monster1.setVisibility(View.INVISIBLE);
                             Game.monster2.setVisibility(View.INVISIBLE);
-                            Game.score += 30;
+                            Game.score += 50;
                             Game.scoreLabel.setText("SCORE: " + Game.score);
                             shake = true;
                         }

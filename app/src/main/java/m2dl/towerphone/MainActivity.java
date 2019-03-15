@@ -1,6 +1,7 @@
 package m2dl.towerphone;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
         // disable title bar, ask for fullscreen mode
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.song);
+        mediaPlayer.start();
     }
 
     public void startGame(View view){
