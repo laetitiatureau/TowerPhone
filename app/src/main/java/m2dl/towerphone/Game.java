@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -26,7 +27,10 @@ public class Game extends AppCompatActivity {
     private ImageView minions;
     private ImageView monster1;
     private ImageView monster2;
+    private ImageView tour;
 
+    private ProgressBar hpBar;
+    private int curHP = 100;
     private int frameHeight, frameWidth;
     private int boxSize;
     private int screenWidth;
@@ -49,8 +53,10 @@ public class Game extends AppCompatActivity {
 
         //customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
 
+        hpBar = findViewById(R.id.progressBar4);
         scoreLabel = findViewById(R.id.scoreLabel);
         startLabel = findViewById(R.id.startLabel);
+        tour = findViewById(R.id.tower);
         monster1 = findViewById(R.id.monstre1);
         monster1.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -122,7 +128,12 @@ public class Game extends AppCompatActivity {
         minionsX -= 7;
         if (minionsX < 0){
                 minionsX = screenWidth;
-                minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
+                minionsY = (int) tour.getY() - 2;
+        }
+        if ((tour.getX() - 5 <= minionsX && minionsX <= tour.getX() + 5)  && (minionsY > tour.getY() - 2  ||  minionsY < tour.getY() + 2 )) {
+            curHP = curHP - 10;
+            hpBar.setProgress(curHP);
+            minionsX = -100;
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
