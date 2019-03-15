@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Game">
+    tools:context=".Game"
+    >
 
     <TextView
         android:id="@+id/scoreLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Score"
+        android:fontFamily="@font/benguiat_bold"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:text="SHAKE TO KILL THEM ALL!"
+        android:fontFamily="@font/benguiat_bold"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/benguiat_bold"
             android:layout_marginTop="130dp"
             android:text="Tap to start"
             android:textSize="30dp" />

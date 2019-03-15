@@ -27,24 +27,27 @@
         app:srcCompat="@drawable/tower" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="PLAY"
-        android:layout_marginTop="60dp"
+        android:fontFamily="@font/benguiat_bold"
+        android:layout_marginTop="30dp"
         android:onClick="startGame"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="HIGH SCORE"
-        android:layout_marginTop="60dp"
+        android:fontFamily="@font/benguiat_bold"
+        android:layout_marginTop="30dp"
         android:onClick="highScore"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="EXIT"
-        android:layout_marginTop="60dp"
+        android:fontFamily="@font/benguiat_bold"
+        android:layout_marginTop="30dp"
         android:onClick="exit"/>
 
 </LinearLayout>
