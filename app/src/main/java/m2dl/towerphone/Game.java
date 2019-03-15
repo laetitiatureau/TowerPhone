@@ -25,18 +25,18 @@ public class Game extends AppCompatActivity {
 
     //private CanvasView customCanvas;
 
-    private TextView scoreLabel;
+    public static TextView scoreLabel;
     private TextView startLabel;
 
-    private ImageView minions;
-    private ImageView monster1;
-    private ImageView monster2;
+    public static ImageView minions;
+    public static ImageView monster1;
+    public static ImageView monster2;
 
     private int frameHeight, frameWidth;
     private int boxSize;
     private int screenWidth;
     private int screenHeight;
-    private int score = 0;
+    public static int score = 0;
     private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY;
 
     private boolean start_flg = false;
