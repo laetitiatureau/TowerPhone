@@ -12,12 +12,14 @@
         android:layout_height="wrap_content"
         android:text="Score"
         tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="10dp" />
+        tools:layout_editor_absoluteY="10dp"
+        android:textSize="20dp" />
 
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/startLabel"
@@ -56,6 +58,15 @@
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/monstre2" />
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHAKE TO KILL THEM ALL!"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_editor_absoluteY="10dp"
+            android:textSize="20dp" />
 
     </FrameLayout>
 

@@ -2,6 +2,7 @@ package m2dl.towerphone;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -82,7 +83,7 @@ public class Game extends AppCompatActivity {
 
         scoreLabel.setText("SCORE: 0");
 
-        shake = findViewById(R.id.scoreLabel);
+        shake = findViewById(R.id.timer);
         Intent intent = new Intent(this, ShakeService.class);
         startService(intent);
 
@@ -94,7 +95,6 @@ public class Game extends AppCompatActivity {
 
             @Override
             public void onShake(int count) {
-                shake.setText("Shake Action is just detected!!");
             }
         });
     }
@@ -108,6 +108,7 @@ public class Game extends AppCompatActivity {
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
+
         //Down
         monster1X += 10;
         if (monster1.getX() > screenWidth){
@@ -121,6 +122,8 @@ public class Game extends AppCompatActivity {
         if (minionsX < 0){
             minionsX = screenWidth + 20 ;
             minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
+                minionsX = screenWidth + 20 ;
+                minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
@@ -135,8 +138,6 @@ public class Game extends AppCompatActivity {
 
         scoreLabel.setText("Score : "+ score);
     }
-
-
 
     /*public void clearCanvas(View v) {
         customCanvas.clearCanvas();

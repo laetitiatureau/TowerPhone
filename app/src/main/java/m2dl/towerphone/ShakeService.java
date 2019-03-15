@@ -8,6 +8,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -20,6 +21,8 @@ public class ShakeService extends Service implements SensorEventListener {
     private float mAccel; // acceleration apart from gravity
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast; // last acceleration including gravity
+
+    private boolean timeRunning = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -50,8 +53,22 @@ public class ShakeService extends Service implements SensorEventListener {
         float delta = mAccelCurrent - mAccelLast;
         mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
+
+
         if (mAccel > 11) {
-            Game.shake.setText("SHAKE!!");
+            if (!timeRunning) {
+                new CountDownTimer(10000, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        Game.shake.setText("Shake available in: " + millisUntilFinished / 1000);
+                        timeRunning = true;
+                    }
+
+                    public void onFinish() {
+                        Game.shake.setText("SHAKE TO KILL THEM ALL!");
+                        timeRunning = false;
+                    }
+                }.start();
+            }
         }
     }
 }
