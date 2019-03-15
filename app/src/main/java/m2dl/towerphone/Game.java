@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 
 public class Game extends AppCompatActivity {
+
     private CanvasView customCanvas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
 
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
     }

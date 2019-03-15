@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class CanvasView extends View {
+class CanvasView extends View {
 
     public int width;
     public int height;
@@ -112,4 +112,5 @@ public class CanvasView extends View {
         }
         return true;
     }
+
 }
