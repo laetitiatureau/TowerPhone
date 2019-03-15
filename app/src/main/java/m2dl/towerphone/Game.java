@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -27,17 +28,19 @@ public class Game extends AppCompatActivity {
     private ImageView minions;
     private ImageView monster1;
     private ImageView monster2;
-    private ImageView tower;
+    private ImageView tour;
+    private ProgressBar hpBar;
 
     private int frameHeight, frameWidth;
     private int boxSize;
     private int screenWidth;
     private int screenHeight;
     private int score = 0;
-    private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY, towerX, towerY;
+    private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY;
 
     private boolean start_flg = false;
     private boolean action_flg = false;
+    private int curHP = 100;
 
     private Handler handler = new Handler();
     private Timer timer = new Timer();
@@ -49,10 +52,11 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        hpBar = findViewById(R.id.progressBar4);
         scoreLabel = findViewById(R.id.scoreLabel);
         startLabel = findViewById(R.id.startLabel);
+        tour = findViewById(R.id.tower);
         monster1 = findViewById(R.id.monstre1);
-        tower = findViewById(R.id.tower);
 
 
         monster1.setOnTouchListener(new View.OnTouchListener() {
@@ -110,6 +114,11 @@ public class Game extends AppCompatActivity {
                 minionsX = screenWidth;
                 minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
         }
+        if ((tour.getX() - 5 <= minionsX && minionsX <= tour.getX() + 5)  && (minionsY > tour.getY() - 2  ||  minionsY < tour.getY() + 2 )) {
+            curHP = curHP - 10;
+            hpBar.setProgress(curHP);
+            minionsX = -100;
+        }
         minions.setX(minionsX);
         minions.setY(minionsY);
         if (minions.getX() >= screenWidth) minions.setVisibility(View.VISIBLE);
@@ -132,25 +141,20 @@ public class Game extends AppCompatActivity {
         }
         monster2.setX(monster2X);
         monster2.setY(monster2Y);
-
         if (monster2.getY() < 0) monster2.setVisibility(View.VISIBLE);
         scoreLabel.setText("Score : "+ score);
     }
 
     private void checkPosition() {
 
-        //if ((tower.getX() -2 <= minionsX && minionsX <= tower.getX() + 2)  && (minionsY > tower.getY() - 2  ||  minionsY < tower.getY() + 2 )){
-
+        if(curHP == 0){
             timer.cancel();
             timer = null;
-
             Intent intent = new Intent(getApplicationContext(), HighScore.class);
             intent.putExtra("SCORE", score);
             startActivity(intent);
-        //}
-
+        }
     }
-
 
     public boolean onTouchEvent(MotionEvent event){
         if (!start_flg){
