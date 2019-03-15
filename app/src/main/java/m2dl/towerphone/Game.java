@@ -1,5 +1,6 @@
 package m2dl.towerphone;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +9,18 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.content.Context;
+import android.widget.Toast;
 
 public class Game extends AppCompatActivity {
 
@@ -39,7 +46,10 @@ public class Game extends AppCompatActivity {
     private Handler handler = new Handler();
     private Timer timer = new Timer();
 
-
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
+    public static TextView shake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +81,23 @@ public class Game extends AppCompatActivity {
         minions.setY(-150);
 
         scoreLabel.setText("SCORE: 0");
+
+        shake = findViewById(R.id.scoreLabel);
+        Intent intent = new Intent(this, ShakeService.class);
+        //Start Service
+        startService(intent);
+
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+                shake.setText("Shake Action is just detected!!");
+            }
+        });
     }
 
     private void changePosition(){
@@ -120,5 +147,19 @@ public class Game extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 }
