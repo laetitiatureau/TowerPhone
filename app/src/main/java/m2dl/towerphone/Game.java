@@ -106,44 +106,34 @@ public class Game extends AppCompatActivity {
     }
 
     private void changePosition(){
-
-        /*minionsX += 20;
-        if (minionsX < 0){
-            minionsX = screenHeight + 10;
-            minionsY = (int) Math.floor(Math.random() * (screenHeight - minions.getHeight()));
-        }
-        minions.setX(minionsX);
-        minions.setY(minionsY);
-
-        //Down
-        monster1X += 10;
-        if (monster1.getX() > screenWidth){
-            monster1X = screenWidth - 10;
-            monster1Y =  (int) Math.floor(Math.random() * (screenHeight - monster1.getHeight()));
-        }
-        monster1.setX(monster1Y);
-        monster1.setY(monster1X);*/
-
         //Left
         minionsX -= 7;
         if (minionsX < 0){
                 minionsX = screenWidth;
-                minionsY = (int) tour.getY() - 2;
+                minionsY = (int) Math.floor(Math.random() * (screenHeight - minions.getHeight()));
         }
-        if ((tour.getX() - 5 <= minionsX && minionsX <= tour.getX() + 5)  && (minionsY > tour.getY() - 2  ||  minionsY < tour.getY() + 2 )) {
-            curHP = curHP - 10;
-            hpBar.setProgress(curHP);
-            minionsX = -100;
+        if(minions.getVisibility() == View.VISIBLE) {
+            if ((tour.getX() -1 < minionsX && minionsX <= tour.getX() + 1) && (minionsY > tour.getY() - 1 || minionsY < tour.getY() + 1)) {
+                curHP = curHP - 10;
+                hpBar.setProgress(curHP);
+                minionsX = -100;
+            }
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
-        if (minions.getX() >= screenWidth) minions.setVisibility(View.VISIBLE);
 
         //Down
         monster1Y += 7;
         if (monster1Y > screenHeight) {
             monster1X = (int) Math.floor(Math.random() * (screenWidth - monster1.getWidth()));
             monster1Y = -100;
+        }
+        if(monster1.getVisibility() == View.VISIBLE) {
+            if ((tour.getX() -1 < monster1X || monster1X < tour.getX() + 1) && (monster1Y > tour.getY() - 1  && monster1Y < tour.getY() + 1)) {
+                curHP = curHP - 10;
+                hpBar.setProgress(curHP);
+                monster1X = -100;
+            }
         }
         monster1.setX(monster1X);
         monster1.setY(monster1Y);
@@ -154,6 +144,14 @@ public class Game extends AppCompatActivity {
         if (monster2X + monster2Y < 0){
             monster2X = (int) Math.floor(Math.random() * (screenWidth - monster2.getWidth()));
             monster2Y = screenHeight + 100;
+        }
+        if(monster2.getVisibility() == View.VISIBLE) {
+            if ((tour.getX() -1 < monster2X  || monster2X < tour.getX() + 1) && (monster2Y > tour.getY() - 1 && monster2Y < tour.getY() + 1)) {
+                curHP = curHP - 10;
+                hpBar.setProgress(curHP);
+                monster2X= -100;
+                monster2Y = -100;
+            }
         }
         monster2.setX(monster2X);
         monster2.setY(monster2Y);
