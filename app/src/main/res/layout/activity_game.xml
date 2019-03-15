@@ -87,10 +87,10 @@
 
         <ImageView
             android:id="@+id/monstre2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="85dp"
+            android:layout_height="75dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/monstre2" />
+            android:src="@drawable/monsterbig" />
 
     </FrameLayout>
 

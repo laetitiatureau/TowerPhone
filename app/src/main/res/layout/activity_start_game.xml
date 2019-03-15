@@ -42,8 +42,8 @@
 
             <ImageView
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/monstre2" />
+                android:layout_height="59dp"
+                android:src="@drawable/monsterbig" />
 
             <TextView
                 android:layout_width="wrap_content"
