@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HighScore"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/rip">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/benguiat_bold"
+        android:shadowColor="#7f0000"
+        android:text="GAME OVER"
+        android:textColor="#ff0000"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/scoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/benguiat_bold"
+        android:shadowColor="#7f0000"
+        android:text="150"
+        android:textColor="#ff0000"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/highScoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High score : 300"
+        android:fontFamily="@font/benguiat_bold"
+        android:shadowColor="#7f0000"
+        android:textColor="#ff0000"
+        android:textSize="20sp"
+        android:layout_marginTop="80dp"/>
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Try again"
+        android:fontFamily="@font/benguiat_bold"
+        android:textAllCaps="false"
+        android:onClick="tryAgain"/>
+
+</LinearLayout>

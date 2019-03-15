@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Game"
+    >
+
+    <TextView
+        android:id="@+id/scoreLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Score"
+        android:fontFamily="@font/benguiat_bold"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frame" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="SHAKE TO KILL THEM ALL!"
+        android:fontFamily="@font/benguiat_bold"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="0dp"
+        android:layout_height="702dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/startLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/benguiat_bold"
+            android:layout_marginTop="130dp"
+            android:text="Tap to start"
+            android:textSize="30dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar4"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="280dp"
+            android:progressBackgroundTint="#3DFF06"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/tower"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="300dp"
+            android:src="@drawable/cercle" />
+
+        <ImageView
+            android:id="@+id/minions"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/minions" />
+
+        <ImageView
+            android:id="@+id/monstre1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/monstre1" />
+
+        <ImageView
+            android:id="@+id/monstre2"
+            android:layout_width="85dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/monsterbig" />
+
+    </FrameLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
