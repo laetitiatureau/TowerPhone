@@ -57,7 +57,7 @@ public class ShakeService extends Service implements SensorEventListener {
         float delta = mAccelCurrent - mAccelLast;
         mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
-        if (mAccel > 11) {
+        if (mAccel > 11 && Game.start_flg) {
             if (!timeRunning) {
                 new CountDownTimer(10000, 1000) {
                     public void onTick(long millisUntilFinished) {
@@ -66,7 +66,7 @@ public class ShakeService extends Service implements SensorEventListener {
                             Game.minions.setVisibility(View.INVISIBLE);
                             Game.monster1.setVisibility(View.INVISIBLE);
                             Game.monster2.setVisibility(View.INVISIBLE);
-                            Game.score = Game.score + 3;
+                            Game.score += 30;
                             Game.scoreLabel.setText("SCORE: " + Game.score);
                             shake = true;
                         }

@@ -10,7 +10,7 @@
         android:id="@+id/scoreLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:text="Score"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,12 +20,15 @@
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="702dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/startLabel"
@@ -35,6 +38,16 @@
             android:layout_marginTop="130dp"
             android:text="Tap to start"
             android:textSize="30dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar4"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="280dp"
+            android:progressBackgroundTint="#3D9406"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/tower"
@@ -65,15 +78,16 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/monstre2" />
 
-        <TextView
-            android:id="@+id/timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SHAKE TO KILL THEM ALL!"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="10dp"
-            android:textSize="20dp" />
-
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="SHAKE TO KILL THEM ALL!"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

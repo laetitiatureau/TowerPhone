@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -31,6 +32,8 @@ public class Game extends AppCompatActivity {
     public static ImageView minions;
     public static ImageView monster1;
     public static ImageView monster2;
+    private ImageView tour;
+    private ProgressBar hpBar;
 
     private int frameHeight, frameWidth;
     private int boxSize;
@@ -39,8 +42,9 @@ public class Game extends AppCompatActivity {
     public static int score = 0;
     private int monster1X, monster1Y, monster2X, monster2Y, minionsX, minionsY;
 
-    private boolean start_flg = false;
+    public static boolean start_flg = false;
     private boolean action_flg = false;
+    private int curHP = 100;
 
     private Handler handler = new Handler();
     private Timer timer = new Timer();
@@ -55,16 +59,18 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
-
+        hpBar = findViewById(R.id.progressBar4);
         scoreLabel = findViewById(R.id.scoreLabel);
         startLabel = findViewById(R.id.startLabel);
+        tour = findViewById(R.id.tower);
         monster1 = findViewById(R.id.monstre1);
+
+
         monster1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 monster1.setVisibility(View.INVISIBLE);
-                score++;
+                score += 10;
                 return false;
             }
         });
@@ -73,7 +79,7 @@ public class Game extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 monster2.setVisibility(View.INVISIBLE);
-                score++;
+                score+=20;
                 return false;
             }
         });
@@ -82,7 +88,7 @@ public class Game extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 minions.setVisibility(View.INVISIBLE);
-                score++;
+                score+=30;
                 return false;
             }
         });
@@ -123,29 +129,17 @@ public class Game extends AppCompatActivity {
     }
 
     private void changePosition(){
-
-        /*minionsX += 20;
-        if (minionsX < 0){
-            minionsX = screenHeight + 10;
-            minionsY = (int) Math.floor(Math.random() * (screenHeight - minions.getHeight()));
-        }
-        minions.setX(minionsX);
-        minions.setY(minionsY);
-
-        //Down
-        monster1X += 10;
-        if (monster1.getX() > screenWidth){
-            monster1X = screenWidth - 10;
-            monster1Y =  (int) Math.floor(Math.random() * (screenHeight - monster1.getHeight()));
-        }
-        monster1.setX(monster1Y);
-        monster1.setY(monster1X);*/
-
+        checkPosition();
         //Left
         minionsX -= 7;
         if (minionsX < 0){
                 minionsX = screenWidth;
                 minionsY = (int) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
+        }
+        if ((tour.getX() - 5 <= minionsX && minionsX <= tour.getX() + 5)  && (minionsY > tour.getY() - 2  ||  minionsY < tour.getY() + 2 )) {
+            curHP = curHP - 10;
+            hpBar.setProgress(curHP);
+            minionsX = -100;
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
@@ -173,11 +167,16 @@ public class Game extends AppCompatActivity {
         scoreLabel.setText("Score : "+ score);
     }
 
+    private void checkPosition() {
 
-
-    /*public void clearCanvas(View v) {
-        customCanvas.clearCanvas();
-    }*/
+        if(curHP == 0){
+            timer.cancel();
+            timer = null;
+            Intent intent = new Intent(getApplicationContext(), HighScore.class);
+            intent.putExtra("SCORE", score);
+            startActivity(intent);
+        }
+    }
 
     public boolean onTouchEvent(MotionEvent event){
         if (!start_flg){
