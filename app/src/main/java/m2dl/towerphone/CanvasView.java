@@ -63,6 +63,8 @@ class CanvasView extends View {
         canvas.drawPath(mPath, mPaint);
         canvas.drawCircle(getWidth()/2, getHeight()/2, 350, paint);
 
+
+
     }
 
     // when ACTION_DOWN start touch according to the x,y values
