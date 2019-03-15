@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 public class Game extends AppCompatActivity {
 
-    //private CanvasView customCanvas;
+    private CanvasView customCanvas;
 
     private TextView scoreLabel;
     private TextView startLabel;
@@ -61,8 +61,8 @@ public class Game extends AppCompatActivity {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        monster1.setX(-80.0f);
-        monster1.setY(-80.0f);
+        monster1.setX(-150.0f);
+        monster1.setY(-150.0f);
 
         monster2.setX(-80.0f);
         monster2.setY(-80.0f);
@@ -76,9 +76,9 @@ public class Game extends AppCompatActivity {
     private void changePosition(){
 
         minionsX -= 5;
-        if (minionsX < 0){
+        if (minions.getX() < 0){
             minionsX = (float) Math.floor(Math.random() * (frameHeight - minions.getHeight()));
-            minionsY = screenHeight + 550.0f;
+            minionsY = screenHeight + 20.0f;
         }
         minions.setX(minionsX);
         minions.setY(minionsY);
@@ -87,7 +87,7 @@ public class Game extends AppCompatActivity {
         monster1X += 5;
         if (monster1.getY()> screenHeight){
             monster1X = (float) Math.floor(Math.random() * (screenWidth - monster1.getWidth()));
-            monster1Y = -100.0f;
+            monster1Y = screenHeight + 50.0f;
         }
         monster1.setX(monster1X);
         monster1.setY(monster1Y);
