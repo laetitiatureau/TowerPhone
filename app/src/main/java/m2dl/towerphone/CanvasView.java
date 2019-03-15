@@ -2,9 +2,9 @@ package m2dl.towerphone;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorSpace;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
@@ -15,7 +15,7 @@ class CanvasView extends View {
 
     public int width;
     public int height;
-    private Bitmap mBitmap;
+    private Bitmap mBitmap, bitmapBG;
     private Canvas mCanvas;
     private Path mPath;
     Context context;
@@ -26,7 +26,7 @@ class CanvasView extends View {
     public CanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
         context = c;
-
+        //bitmapBG = BitmapFactory.decodeResource(getResources(), R.drawable.grassbg);
         // we set a new Path
         mPath = new Path();
 
@@ -53,12 +53,17 @@ class CanvasView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //canvas.drawBitmap(bitmapBG, 0, 0 , null);
         Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.RED);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(4);
 
         // draw the mPath with the mPaint on the canvas when onDraw
         canvas.drawPath(mPath, mPaint);
         canvas.drawCircle(getWidth()/2, getHeight()/2, 350, paint);
+
+
 
     }
 
